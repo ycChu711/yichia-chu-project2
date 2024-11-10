@@ -5,17 +5,23 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #ccc;
+    font-weight: bold;
+    font-size: 16px;
     cursor: pointer;
     user-select: none;
-}
-
-.square.revealed {
-    background-color: #eee;
+    background-color: #ccc;
 }
 
 .square.unrevealed {
     background-color: #ccc;
+}
+
+.square.unrevealed:hover {
+    background-color: #ddd;
+}
+
+.square.revealed {
+    background-color: #eee;
 }
 
 .square.bomb {
@@ -26,7 +32,35 @@
     background-color: #ffeb3b;
 }
 
-/* Add hover effect for unrevealed cells */
-.square.unrevealed:hover {
-    background-color: #ddd;
+/* Different colors for numbers */
+.square.number-1 {
+    color: blue;
+}
+
+.square.number-2 {
+    color: green;
+}
+
+.square.number-3 {
+    color: red;
+}
+
+.square.number-4 {
+    color: darkblue;
+}
+
+.square.number-5 {
+    color: darkred;
+}
+
+.square.number-6 {
+    color: darkcyan;
+}
+
+.square.number-7 {
+    color: black;
+}
+
+.square.number-8 {
+    color: gray;
 }

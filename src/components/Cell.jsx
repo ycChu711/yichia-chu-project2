@@ -14,7 +14,7 @@ export default function Cell(props) {
         gameOver
     } = props;
 
-    //console.log('Cell rendering:', { row, column, isRevealed, isFlagged, neighboringMines });
+    //console.log('Cell rendering:', { row, column, isRevealed, isFlagged, isBomb, neighboringMines });
 
     const handleClick = useCallback((e) => {
         e.preventDefault();
@@ -34,26 +34,31 @@ export default function Cell(props) {
     }, [gameOver, onFlag]);
 
     const getCellContent = () => {
+        //console.log('Getting cell content:', { isRevealed, isFlagged, isBomb, neighboringMines });
         if (isFlagged) return "🚩";
         if (!isRevealed) return "";
         if (isBomb) return "💣";
-        return neighboringMines > 0 ? neighboringMines : "";
+        if (neighboringMines > 0) {
+            return neighboringMines.toString();
+        }
+        return "";
     };
 
-    // Use more specific class names for debugging
     const cellClassName = `square 
         ${isRevealed ? 'revealed' : 'unrevealed'} 
         ${isFlagged ? 'flagged' : ''} 
-        ${isRevealed && isBomb ? 'bomb' : ''}`;
+        ${isRevealed && isBomb ? 'bomb' : ''}
+        ${isRevealed && neighboringMines > 0 ? `number-${neighboringMines}` : ''}`;
 
     return (
         <div
-            className={cellClassName}
+            className={cellClassName.trim()}
             onClick={handleClick}
             onContextMenu={handleContextMenu}
             data-revealed={isRevealed}
             data-row={row}
             data-col={column}
+            data-mines={neighboringMines}
         >
             {getCellContent()}
         </div>
