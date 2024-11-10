@@ -1,0 +1,32 @@
+.square {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ccc;
+    cursor: pointer;
+    user-select: none;
+}
+
+.square.revealed {
+    background-color: #eee;
+}
+
+.square.unrevealed {
+    background-color: #ccc;
+}
+
+.square.bomb {
+    background-color: #ff8080;
+}
+
+.square.flagged {
+    background-color: #ffeb3b;
+}
+
+/* Add hover effect for unrevealed cells */
+.square.unrevealed:hover {
+    background-color: #ddd;
+}
