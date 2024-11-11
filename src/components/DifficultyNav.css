@@ -1,26 +1,26 @@
 .difficulty-nav {
     display: flex;
     gap: 15px;
-    margin-bottom: 10px;
-    font-size: 1.2rem;
+    margin: 20px 0;
+    font-size: 25px;
     justify-content: center;
 
 }
 
 .difficulty-nav span {
     cursor: pointer;
-    color: #007bff;
+    color: rgb(219, 145, 7);
     text-decoration: none;
     padding: 5px;
     transition: color 0.3s;
 }
 
 .difficulty-nav span:hover {
-    color: #0056b3;
+    color: orange;
 }
 
 .difficulty-nav .active {
     font-weight: bold;
-    color: #0056b3;
-    border-bottom: 2px solid #0056b3;
+    color: orange;
+    border-bottom: 2px solid orange;
 }

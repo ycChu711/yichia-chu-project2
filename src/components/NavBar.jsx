@@ -1,6 +1,6 @@
 // src/components/NavBar.jsx
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import './NavBar.css';
 
 export default function NavBar() {
@@ -8,9 +8,9 @@ export default function NavBar() {
         <div className="main-nav">
             <Link to="/" className="title">Minesweeper</Link>
             <div className="nav">
-                <Link to="/">Home</Link>
-                <Link to="/game">Game</Link>
-                <Link to="/rules">Rules</Link>
+                <NavLink to="/">Home</NavLink>
+                <NavLink to="/game">Game</NavLink>
+                <NavLink to="/rules">Rules</NavLink>
             </div>
         </div>
     );

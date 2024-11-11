@@ -2,6 +2,7 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .grid {
@@ -36,4 +37,36 @@
 
 .control-panel {
     justify-content: center;
+}
+
+.game-info {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    color: orange;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.game-status {
+    font-size: 25px;
+    color: orange;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 20px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    background-color: orange;
+    color: #333;
+    border: rgb(231, 183, 93) 2px solid;
+    cursor: pointer;
+    border-radius: 20px;
 }

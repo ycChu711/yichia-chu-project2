@@ -1,12 +1,18 @@
 import React from 'react';
 import NavBar from './NavBar';
+import './RulesPage.css';
 
 export default function RulesPage() {
     return (
-        <div>
+        <div className='rules-page'>
             <NavBar />
-            <h2>Game Rules</h2>
-            <p>Use logic to find all safe squares without hitting any bombs!</p>
+            <h1>Game Rules</h1>
+            <p>The board is divided into cells, with mines randomly distributed.</p>
+            <p>To win, you need to open all the cells.</p>
+            <p>The number on a cell shows the number of mines adjacent to it.</p>
+            <p>Using this information, you can determine cells that are safe, and cells that contain mines.</p>
+            <p>Cells suspected of being mines can be marked with a flag using the right mouse button.</p>
+
         </div>
     );
 }

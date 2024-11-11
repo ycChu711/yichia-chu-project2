@@ -1,17 +1,20 @@
-.home-page {
+.rules-page {
     text-align: center;
     background-color: #333;
     font-family: 'Courier New', Courier, monospace;
 }
 
-.home-page h1 {
+.rules-page h1 {
     color: orange;
     font-size: 35px;
     font-weight: bold;
     margin: 20px 0;
+    text-decoration: underline;
+
+
 }
 
-.home-page p {
+.rules-page p {
     color: orange;
     font-size: 20px;
     margin: 20px 0;
