@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import './Cell.css';
 
 export default function Cell(props) {
@@ -14,7 +14,38 @@ export default function Cell(props) {
         gameOver
     } = props;
 
-    //console.log('Cell rendering:', { row, column, isRevealed, isFlagged, isBomb, neighboringMines });
+    const [touchTimeout, setTouchTimeout] = useState(null);
+    const [touchStartTime, setTouchStartTime] = useState(0);
+
+    const handleTouchStart = useCallback((e) => {
+        e.preventDefault();
+        setTouchStartTime(Date.now());
+
+        const timeout = setTimeout(() => {
+            if (!gameOver) {
+                onFlag(e);
+            }
+        }, 500); // 500ms long press to flag
+
+        setTouchTimeout(timeout);
+    }, [gameOver, onFlag]);
+
+    const handleTouchEnd = useCallback((e) => {
+        e.preventDefault();
+        clearTimeout(touchTimeout);
+
+        // If the touch duration was less than 500ms, treat it as a regular click
+        if (Date.now() - touchStartTime < 500) {
+            if (!isFlagged && !gameOver) {
+                onReveal();
+            }
+        }
+    }, [touchTimeout, touchStartTime, isFlagged, gameOver, onReveal]);
+
+    const handleTouchMove = useCallback((e) => {
+        // Cancel the long press if user moves their finger
+        clearTimeout(touchTimeout);
+    }, [touchTimeout]);
 
     const handleClick = useCallback((e) => {
         e.preventDefault();
@@ -55,6 +86,9 @@ export default function Cell(props) {
             className={cellClassName.trim()}
             onClick={handleClick}
             onContextMenu={handleContextMenu}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+            onTouchMove={handleTouchMove}
             data-revealed={isRevealed}
             data-row={row}
             data-col={column}

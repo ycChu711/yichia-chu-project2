@@ -12,7 +12,7 @@ export default function RulesPage() {
                 <p>To win, you need to open all the cells.</p>
                 <p>The number on a cell shows the number of mines adjacent to it.</p>
                 <p>Using this information, you can determine cells that are safe, and cells that contain mines.</p>
-                <p>Cells suspected of being mines can be marked with a flag using the right mouse button.</p>
+                <p>Cells suspected of being mines can be marked with a flag using the right mouse button or long press if you are using an mobile device.</p>
             </div>
 
         </div>
