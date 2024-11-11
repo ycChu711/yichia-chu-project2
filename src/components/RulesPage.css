@@ -2,6 +2,11 @@
     text-align: center;
     background-color: #333;
     font-family: 'Courier New', Courier, monospace;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+    position: relative;
 }
 
 .rules-page h1 {
@@ -15,7 +20,7 @@
 }
 
 .rules-page p {
-    color: orange;
+    color: #FFB74D;
     font-size: 20px;
     margin: 20px 0;
 }

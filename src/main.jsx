@@ -17,7 +17,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/game',
-    element: <Navigate to="/game/easy" replace /> // Redirect to /game/easy
+    element: <Navigate to="/game/easy" replace />
   },
   {
     path: '/game/:level',

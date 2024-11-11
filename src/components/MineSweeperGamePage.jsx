@@ -189,7 +189,6 @@ export default function MineSweeperGamePage() {
     }, [rows, cols]);
 
 
-    // Modify handleFlag to save game state after flag changes
     const handleFlag = useCallback((row, col, event) => {
         event.preventDefault();
 
