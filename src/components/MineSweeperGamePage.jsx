@@ -5,6 +5,8 @@ import Cell from './Cell';
 import { MineSweeperContext } from '../context/MineSweeperContext';
 import DifficultyNav from './DifficultyNav';
 import NavBar from './NavBar';
+import { useLayoutEffect } from 'react';
+
 
 export default function MineSweeperGamePage() {
     const DIFFICULTY_SETTINGS = {
@@ -402,8 +404,8 @@ export default function MineSweeperGamePage() {
             style={{
                 "--cols": cols,
                 display: 'grid',
-                gridTemplateColumns: `repeat(${cols}, 30px)`,
-                gap: '1px'
+                gridTemplateColumns: `repeat(${cols}, ${window.innerWidth <= 600 ? '20px' : '30px'})`,
+                gap: window.innerWidth <= 600 ? '1px' : '2px'
             }}
         >
             {gameState.grid.map((row, rowIndex) => (
@@ -424,6 +426,25 @@ export default function MineSweeperGamePage() {
             ))}
         </div>
     ), [gameState.grid, cols, handleReveal, handleFlag, gameOver, level, rows]);
+
+    useLayoutEffect(() => {
+        const updateControlPanelHeight = () => {
+            const controlPanel = document.querySelector('.control-panel');
+            if (controlPanel) {
+                const height = controlPanel.offsetHeight;
+                document.documentElement.style.setProperty('--control-panel-height', `${height + 20}px`);
+            }
+        };
+
+        // Initial calculation
+        updateControlPanelHeight();
+
+        // Recalculate on window resize
+        window.addEventListener('resize', updateControlPanelHeight);
+
+        // Cleanup
+        return () => window.removeEventListener('resize', updateControlPanelHeight);
+    }, [gameOver]);
 
     return (
         <div className="minesweeper-page">

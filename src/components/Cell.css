@@ -63,3 +63,12 @@
 .square.number-8 {
     color: gray;
 }
+
+@media screen and (max-width: 600px) {
+    .square {
+        width: 20px;
+        height: 20px;
+        font-size: 12px;
+    }
+
+}

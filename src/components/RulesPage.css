@@ -24,3 +24,14 @@ body {
     margin: 0;
     background-color: #333;
 }
+
+@media screen and (max-width: 600px) {
+    .rules-page h1 {
+        font-size: 30px;
+    }
+
+    .rules-page p {
+        font-size: 18px;
+    }
+
+}

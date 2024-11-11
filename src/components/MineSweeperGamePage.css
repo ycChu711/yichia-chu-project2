@@ -1,8 +1,14 @@
 .minesweeper-page {
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     font-family: 'Courier New', Courier, monospace;
+
+    max-width: 100%;
+    overflow-x: hidden;
+    position: relative;
+    margin-bottom: 50px;
+    padding-top: 20px;
 }
 
 .grid {
@@ -18,6 +24,14 @@
     flex-direction: column;
     gap: 10px;
     align-items: center;
+
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+    /*padding-top: 20px;*/
+    /* Space between control panel and game area */
+    margin-top: var(--control-panel-height, 200px);
 }
 
 
@@ -37,6 +51,16 @@
 
 .control-panel {
     justify-content: center;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #333;
+    /* Match your background color */
+    z-index: 1000;
+    padding: 10px 0;
+    height: auto;
 }
 
 .game-info {
@@ -45,7 +69,6 @@
     gap: 10px;
     color: orange;
     font-size: 20px;
-    margin-bottom: 10px;
 }
 
 .game-status {
@@ -69,4 +92,33 @@ button {
     border: rgb(231, 183, 93) 2px solid;
     cursor: pointer;
     border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+@media screen and (max-width: 600px) {
+    .game-info {
+        font-size: 16px;
+    }
+
+    .game-status {
+        font-size: 20px;
+    }
+
+    button {
+        padding: 5px 10px;
+        font-size: 16px;
+    }
+
+    .grid {
+        grid-template-columns: repeat(var(--cols), 20px);
+        gap: 1px;
+        max-width: 100%;
+        overflow-x: auto;
+        padding: 0 10px;
+    }
+
+    .game-area {
+        margin-top: var(--control-panel-height, 180px);
+    }
+
 }
