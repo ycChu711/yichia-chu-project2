@@ -14,9 +14,7 @@
 .grid {
     display: grid;
     grid-template-columns: repeat(var(--cols), 30px);
-    /* Adjust the cell width as needed */
     gap: 2px;
-    /* Optional: adjust the gap between cells */
 }
 
 .game-area {
@@ -29,8 +27,6 @@
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     position: relative;
-    /*padding-top: 20px;*/
-    /* Space between control panel and game area */
     margin-top: var(--control-panel-height, 200px);
 }
 
@@ -57,7 +53,6 @@
     left: 0;
     right: 0;
     background-color: #333;
-    /* Match your background color */
     z-index: 1000;
     padding: 10px 0;
     height: auto;

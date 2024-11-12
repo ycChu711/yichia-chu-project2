@@ -34,7 +34,6 @@ export default function Cell(props) {
         e.preventDefault();
         clearTimeout(touchTimeout);
 
-        // If the touch duration was less than 500ms, treat it as a regular click
         if (Date.now() - touchStartTime < 500) {
             if (!isFlagged && !gameOver) {
                 onReveal();
@@ -43,7 +42,6 @@ export default function Cell(props) {
     }, [touchTimeout, touchStartTime, isFlagged, gameOver, onReveal]);
 
     const handleTouchMove = useCallback((e) => {
-        // Cancel the long press if user moves their finger
         clearTimeout(touchTimeout);
     }, [touchTimeout]);
 

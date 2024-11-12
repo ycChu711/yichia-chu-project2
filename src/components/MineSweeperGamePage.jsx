@@ -55,12 +55,10 @@ export default function MineSweeperGamePage() {
         let placedMines = 0;
         console.log(`Starting to place ${mineCount} mines, excluding [${excludeRow},${excludeCol}]`);
 
-        // Get actual grid dimensions from the grid parameter
         const gridRows = grid.length;
         const gridCols = grid[0]?.length || 0;
 
         while (placedMines < mineCount) {
-            // Use grid's actual dimensions instead of rows/cols from settings
             const randomRow = Math.floor(Math.random() * gridRows);
             const randomCol = Math.floor(Math.random() * gridCols);
 
@@ -137,7 +135,7 @@ export default function MineSweeperGamePage() {
     }, [rows, cols, mines, initializeGame, createInitialGrid]);
 
     const revealEmptyCells = useCallback((grid, row, col, currentRevealedCount) => {
-        // If cell is invalid, already revealed, a bomb, or flagged, return without changes
+        // If cell is invalid, already revealed, a bomb, or flagged
         if (row < 0 || row >= rows || col < 0 || col >= cols ||
             !grid[row] || !grid[row][col] ||
             grid[row][col].isRevealed ||
@@ -146,12 +144,10 @@ export default function MineSweeperGamePage() {
             return currentRevealedCount;
         }
 
-        // Reveal current cell
         grid[row][col].isRevealed = true;
         let newRevealedCount = currentRevealedCount + 1;
         console.log(`Revealing cell [${row},${col}], neighbors: ${grid[row][col].neighboringMines}, total: ${newRevealedCount}`);
 
-        // Only recurse if it's an empty cell
         if (grid[row][col].neighboringMines === 0) {
             const directions = [
                 [-1, -1], [-1, 0], [-1, 1],
@@ -163,20 +159,16 @@ export default function MineSweeperGamePage() {
                 const newRow = row + dx;
                 const newCol = col + dy;
 
-                // Check if neighbor is valid
                 if (newRow >= 0 && newRow < rows &&
                     newCol >= 0 && newCol < cols) {
                     const neighbor = grid[newRow][newCol];
 
-                    // If neighbor isn't revealed and isn't flagged
                     if (!neighbor.isRevealed && !neighbor.isFlagged) {
-                        // If neighbor has number, just reveal it
                         if (neighbor.neighboringMines > 0) {
                             neighbor.isRevealed = true;
                             newRevealedCount++;
                             console.log(`Revealed numbered cell [${newRow},${newCol}]: ${neighbor.neighboringMines}`);
                         }
-                        // If neighbor is empty, recursively reveal
                         else if (!neighbor.isBomb) {
                             newRevealedCount = revealEmptyCells(grid, newRow, newCol, newRevealedCount);
                         }
@@ -192,9 +184,7 @@ export default function MineSweeperGamePage() {
     const handleFlag = useCallback((row, col, event) => {
         event.preventDefault();
 
-        // Only allow flagging if the cell isn't revealed and game isn't over
         if (!gameState.grid[row][col].isRevealed && !gameOver) {
-            // Create the new state first
             const newGrid = gameState.grid.map(r => r.map(cell => ({ ...cell })));
             const cell = newGrid[row][col];
             cell.isFlagged = !cell.isFlagged;
@@ -205,13 +195,11 @@ export default function MineSweeperGamePage() {
                 flagCount: gameState.flagCount + (cell.isFlagged ? 1 : -1)
             };
 
-            // Check if we should save (either saved game or game started)
             const isSavedGame = newGrid.some(row => row.some(cell => cell.isBomb));
             if (isSavedGame || !isFirstClick.current) {
                 saveGameState(level, newState);
             }
 
-            // Update state after saving
             setGameState(newState);
         }
     }, [gameOver, level, gameState]);
@@ -255,11 +243,10 @@ export default function MineSweeperGamePage() {
             };
 
             setGameState(newState);
-            saveGameState(level, newState); // Save after first move
+            saveGameState(level, newState);
             return;
         }
 
-        // Handle subsequent clicks
         setGameState(prevState => {
             const newGrid = prevState.grid.map(r => r.map(cell => ({ ...cell })));
             const cell = newGrid[row][col];
@@ -287,7 +274,7 @@ export default function MineSweeperGamePage() {
                 };
             }
 
-            saveGameState(level, newState); // Save after each move
+            saveGameState(level, newState);
             return newState;
         });
     }, [gameOver, totalNonBombCells, placeMines, calculateNeighboringMines, revealEmptyCells, mines, createInitialGrid, gameState.grid, level]);
@@ -295,13 +282,10 @@ export default function MineSweeperGamePage() {
     const handleReset = useCallback(() => {
         console.log('Resetting game');
 
-        // Clear saved state for current level
         localStorage.removeItem(`minesweeper_${level}`);
 
-        // Reset game context
         initializeGame(rows, cols, mines);
 
-        // Reset game state with fresh grid
         setGameState({
             grid: Array.from({ length: rows }, (_, row) =>
                 Array.from({ length: cols }, (_, col) => ({
@@ -319,7 +303,7 @@ export default function MineSweeperGamePage() {
             hitBomb: false
         });
 
-        // Reset first click state
+
         isFirstClick.current = true;
     }, [level, rows, cols, mines, initializeGame]);
 
@@ -339,7 +323,6 @@ export default function MineSweeperGamePage() {
             if (savedState) {
                 const parsedState = JSON.parse(savedState);
 
-                // Verify the grid dimensions match the current level
                 if (parsedState.grid.length === rows && parsedState.grid[0].length === cols) {
                     console.log(`Loaded saved game state for level: ${level}`);
                     return parsedState;
@@ -363,7 +346,7 @@ export default function MineSweeperGamePage() {
 
         if (savedState && savedState.grid.some(row => row.some(cell => cell.isBomb))) {
             console.log('Loading saved game state');
-            isFirstClick.current = false; // Game is already started if there are bombs
+            isFirstClick.current = false;
             setGameState(savedState);
             initializeGame(rows, cols, mines);
         } else {
@@ -380,14 +363,12 @@ export default function MineSweeperGamePage() {
             });
         }
 
-        // No more saving in cleanup
         return () => {
             console.log('Cleaning up level:', level);
         };
     }, [level, rows, cols, mines, initializeGame, createInitialGrid]);
 
 
-    // Effect for game over conditions
     useEffect(() => {
         if (gameState.hitBomb) {
             checkIfGameIsOver(true);
@@ -398,7 +379,7 @@ export default function MineSweeperGamePage() {
 
     const memoizedGrid = useMemo(() => (
         <div
-            key={`${level}-${rows}-${cols}`}  // Add this key
+            key={`${level}-${rows}-${cols}`}
             className="grid"
             style={{
                 "--cols": cols,
@@ -435,13 +416,10 @@ export default function MineSweeperGamePage() {
             }
         };
 
-        // Initial calculation
         updateControlPanelHeight();
 
-        // Recalculate on window resize
         window.addEventListener('resize', updateControlPanelHeight);
 
-        // Cleanup
         return () => window.removeEventListener('resize', updateControlPanelHeight);
     }, [gameOver]);
 

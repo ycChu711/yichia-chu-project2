@@ -5,7 +5,7 @@ export const MineSweeperContext = createContext();
 export function MineSweeperProvider({ children }) {
     const [gameState, setGameState] = useState({
         gameOver: false,
-        gameStatus: "playing", // playing, won, lost
+        gameStatus: "playing",
         revealedCells: 0,
         totalNonBombCells: 0
     });
